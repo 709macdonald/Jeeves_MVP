@@ -1,4 +1,4 @@
-import MainScreen from './mainScreen'
+import MainScreen from './screens/MainScreen'
 
 export default function App() {
   return <MainScreen />
