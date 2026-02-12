@@ -1,4 +1,3 @@
-import React from 'react'
 
 // MainScreen: renders a blank white full-viewport screen
 export default function MainScreen() {
