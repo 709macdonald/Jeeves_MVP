@@ -1,6 +1,5 @@
 // MainScreen: renders a blank white full-viewport screen
-import InputBar from '../components/InputBar'
-import InputBarButton from '../components/InputBarButton'
+import InputBarSection from '../components/InputBarSection'
 
 export default function MainScreen() {
   return (
@@ -18,24 +17,16 @@ export default function MainScreen() {
           padding: 16,
         }}
       >
-        {/* Row container: input grows, button sits to the right */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-            width: '100%',
-            maxWidth: 640,
+        <InputBarSection
+          onSubmit={() => {
+            // Placeholder action for now
+            console.log('Submit from InputBarSection')
           }}
-        >
-          <InputBar style={{ width: 'auto', flex: 1 }} />
-          <InputBarButton
-            onClick={() => {
-              // Placeholder action for now
-              console.log('Send clicked')
-            }}
-          />
-        </div>
+          onSend={() => {
+            // Placeholder action for now
+            console.log('Send clicked')
+          }}
+        />
       </div>
     </div>
   )
