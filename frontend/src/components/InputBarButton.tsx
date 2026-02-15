@@ -28,6 +28,7 @@ export default function InputBarButton({
   ...rest
 }: InputBarButtonProps) {
   const baseClasses = [
+    'input-bar-button', // Custom class for CSS variable styling
     'inline-flex items-center justify-center',
     'rounded-full select-none',
     'transition-all duration-200 ease-in-out',
@@ -40,7 +41,7 @@ export default function InputBarButton({
   const variantClasses =
     variant === 'primary'
       ? 'bg-blue-600 text-white hover:bg-blue-700 border-0'
-      : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
+      : 'bg-white text-gray-700 hover:bg-gray-50 border-0'
 
   const dimensionStyle: CSSProperties = {
     width: size,

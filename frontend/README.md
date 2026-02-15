@@ -135,3 +135,37 @@ Uses **Tailwind CSS v4** with CSS-based configuration:
 - [ ] Implement dark mode
 - [ ] Add typing indicators
 - [ ] Mobile optimizations
+
+## Design System
+
+This project uses **CSS variables** for all design tokens (colors, spacing, shadows, etc.), making it easy to maintain consistency and support theming.
+
+### CSS Variables
+All design tokens are defined in `src/index.css`:
+- **Colors**: Text, borders, surfaces, brand colors
+- **Spacing**: Consistent spacing scale (xs to xl)
+- **Typography**: Font family, sizes, line heights
+- **Shadows**: Small, medium, and large shadows
+- **Transitions**: Fast, normal, and slow durations
+- **Z-index**: Layering system for overlays
+
+See `DESIGN_SYSTEM.md` for complete documentation.
+
+### Styling Approach
+- **Tailwind classes** for layout and utilities (flex, grid, padding)
+- **CSS variables** for theming (colors, shadows, typography)
+- **Custom component classes** for variable-based overrides (`.input-bar`, `.input-bar-button`)
+
+This hybrid approach gives us rapid development with Tailwind while maintaining a consistent, theme-able design system via CSS variables.
+
+### Adding Dark Mode
+To add dark mode in the future, just override the CSS variables:
+```css
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #111827;
+    --color-text-primary: #f9fafb;
+    /* ... etc */
+  }
+}
+```

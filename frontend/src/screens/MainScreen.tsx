@@ -17,9 +17,9 @@ export default function MainScreen() {
         {/* TODO: Add message list component here */}
       </div>
 
-      {/* Sticky input footer with backdrop blur */}
-      <div className="sticky bottom-0 w-full border-t border-gray-200 bg-white/80 backdrop-blur-sm">
-        <div className="max-w-3xl mx-auto px-4 py-4">
+      {/* Input footer with spacing and shadow - centered with max width */}
+      <div className="flex justify-center px-4 pb-4">
+        <div className="input-section-container max-w-3xl w-full">
           <InputBarSection maxWidth={768} onSubmit={handleSubmit} onSend={handleSubmit} />
         </div>
       </div>

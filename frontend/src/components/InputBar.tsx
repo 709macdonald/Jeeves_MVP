@@ -1,5 +1,5 @@
 import type { TextareaHTMLAttributes } from 'react'
-import { useAutoResize } from '../hooks/useAutoResize'
+import { useAutoResize } from '../hooks'
 
 type InputBarProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   /** Maximum number of rows before scrolling kicks in. Default: 10 */
@@ -11,29 +11,19 @@ type InputBarProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
  * Grows vertically as user types, up to maxRows, then scrolls.
  */
 export default function InputBar({ className, maxRows = 10, onInput, ...rest }: InputBarProps) {
-  const { textareaRef, resize } = useAutoResize(maxRows)
+  const { textareaRef, handleInput } = useAutoResize(maxRows, onInput)
 
   const classes = [
+    'input-bar', // Custom class for CSS variable styling
     'w-full px-4 py-3',
     'rounded-3xl',
-    'border border-gray-200',
-    'bg-white',
     'outline-none',
     'text-base leading-relaxed',
     'placeholder-gray-400',
-    'focus:border-gray-300',
-    'shadow-md hover:shadow-lg',
-    'transition-shadow duration-200',
+    'transition-colors duration-200',
     'resize-none',
     className,
-  ]
-    .filter(Boolean)
-    .join(' ')
-
-  const handleInput: React.FormEventHandler<HTMLTextAreaElement> = (e) => {
-    resize()
-    onInput?.(e)
-  }
+  ].filter(Boolean).join(' ')
 
   return (
     <textarea

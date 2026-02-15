@@ -5,12 +5,71 @@
  * Clean, minimal, modern ChatGPT-inspired design.
  */
 
+:root {
+  /* Color System */
+  --color-background: #ffffff;
+  --color-text-primary: #374151;
+  --color-text-secondary: #6b7280;
+  --color-text-placeholder: #9ca3af;
+  
+  --color-border-light: #e5e7eb;
+  --color-border-medium: #d1d5db;
+  --color-border-focus: #9ca3af;
+  
+  --color-surface: #ffffff;
+  --color-surface-hover: #f9fafb;
+  
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-text: #ffffff;
+  
+  /* Spacing System (matches Tailwind defaults) */
+  --spacing-xs: 0.5rem;   /* 8px */
+  --spacing-sm: 0.75rem;  /* 12px */
+  --spacing-md: 1rem;     /* 16px */
+  --spacing-lg: 1.5rem;   /* 24px */
+  --spacing-xl: 2rem;     /* 32px */
+  
+  /* Border Radius */
+  --radius-sm: 0.5rem;    /* 8px */
+  --radius-md: 0.75rem;   /* 12px */
+  --radius-lg: 1rem;      /* 16px */
+  --radius-xl: 1.5rem;    /* 24px */
+  --radius-full: 9999px;  /* circular */
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  
+  /* Typography */
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+  
+  /* Transitions */
+  --transition-fast: 150ms;
+  --transition-normal: 200ms;
+  --transition-slow: 300ms;
+  
+  /* Z-index layers */
+  --z-base: 0;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-modal: 30;
+  --z-popover: 40;
+  --z-tooltip: 50;
+}
+
 html,
 body {
-  background-color: #ffffff;
-  color: #374151;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
   min-height: 100vh;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -22,4 +81,47 @@ body {
 /* Remove default focus outlines - components handle their own focus styles */
 :focus-visible {
   outline: none;
+}
+
+/* Component Styles Using CSS Variables */
+
+/* InputBarSection Container - Shadow and spacing, NOT full width */
+.input-section-container {
+  background: var(--color-background);
+  box-shadow: 0 -4px 6px -1px rgb(0 0 0 / 0.05), 0 -2px 4px -2px rgb(0 0 0 / 0.05);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-xl);
+}
+
+/* InputBar - Auto-resizing textarea with consistent white background */
+.input-bar {
+  border: none;
+  box-shadow: none;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-family);
+}
+
+.input-bar::placeholder {
+  color: var(--color-text-placeholder);
+}
+
+.input-bar:focus,
+.input-bar:hover {
+  background-color: var(--color-background);
+  outline: none;
+}
+
+/* InputBarButton - Circular icon buttons */
+.input-bar-button {
+  transition-duration: var(--transition-normal);
+  box-shadow: var(--shadow-sm);
+}
+
+.input-bar-button:hover:not(:disabled) {
+  box-shadow: var(--shadow-md);
+}
+
+.input-bar-button:active:not(:disabled) {
+  box-shadow: var(--shadow-sm);
 }
