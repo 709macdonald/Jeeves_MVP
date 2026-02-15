@@ -1,6 +1,6 @@
 # Jeeves MVP - Frontend
 
-Modern, ChatGPT-inspired chat interface built with React, TypeScript, and Tailwind CSS v4.
+Modern, ChatGPT-inspired chat interface built with React, TypeScript, and Tailwind CSS v4. **Backend-ready** with type-safe API layer.
 
 ## Tech Stack
 
@@ -10,110 +10,75 @@ Modern, ChatGPT-inspired chat interface built with React, TypeScript, and Tailwi
 - **Tailwind CSS v4** - Utility-first styling
 - **Font Awesome** - Icon library
 
+## Quick Start
+
+```bash
+# Install dependencies
+npm install
+
+# Run dev server
+npm run dev
+
+# Type check
+npm run typecheck
+
+# Build for production
+npm run build
+```
+
 ## Project Structure
 
 ```
 src/
-├── components/          # Presentational UI components (no logic)
-│   ├── InputBar.tsx            # Auto-resizing textarea input
-│   ├── InputBarButton.tsx      # Circular action button
-│   └── InputBarSection.tsx     # Complete input section with buttons
-├── hooks/              # Custom React hooks (all reusable logic)
-│   ├── useAutoResize.ts        # Auto-resize textarea logic
-│   └── index.ts                # Hooks barrel export
-├── screens/            # Page-level components
-│   └── MainScreen.tsx          # Main chat interface
-├── types/              # TypeScript type definitions
+├── components/          # UI components
+│   ├── InputBar.tsx
+│   ├── MessageDisplayArea.tsx
+│   └── UserMessage.tsx
+├── hooks/              # React hooks (all logic)
+│   ├── useChatMessages.ts      # Main chat state + API calls
+│   ├── useAutoResize.ts
+│   └── useEnterSubmit.ts
+├── services/           # Backend API layer
+│   ├── apiClient.ts           # Generic HTTP client
+│   ├── chatService.ts         # Chat API methods
+│   └── chatService.mock.ts    # Mock for testing
+├── types/              # TypeScript types
+│   ├── api.ts                 # API DTOs
 │   └── vite-env.d.ts
-├── App.tsx             # Root component
-├── main.tsx            # Application entry point
-└── index.css           # Global styles and Tailwind import
+├── utils/              # Utilities
+│   └── messageUtils.ts
+└── screens/            # Page components
+    └── MainScreen.tsx
 ```
-
-## Architecture Principles
-
-### Components
-- **Purely presentational** - no business logic
-- Handle only UI rendering and user interactions
-- Call hooks for any complex logic
-- Accept props and callbacks
-
-### Hooks (`hooks/`)
-- **All reusable logic** lives in custom hooks
-- Follow React hooks naming convention (`use*`)
-- Encapsulate state management, side effects, and complex calculations
-- Exported via barrel file (`hooks/index.ts`)
 
 ## Key Features
 
-### InputBar Component
-- Auto-grows as user types (up to 10 rows, then scrolls)
-- Smooth shadow transitions on hover
-- Fully accessible with ARIA labels
-- Uses `useAutoResize` hook for resize logic
-- Props: `maxRows`, `className`, plus all standard textarea attributes
-
-### InputBarButton Component
-- Circular icon buttons with smooth animations
-- Two variants: `primary` (blue) and `secondary` (white/gray)
-- Loading state support
-- Customizable size
-- Props: `icon`, `variant`, `loading`, `size`, `className`
-
-### InputBarSection Component
-- Complete input section with auto-grow textarea
-- Default send button (paper plane icon)
-- Support for custom action buttons via `children`
-- Enter to submit, Shift+Enter for newline
-- Props: `inputProps`, `onSubmit`, `onSend`, `showSendButton`, `maxWidth`
-
-### Custom Hooks
-
-#### `useAutoResize(maxRows)`
-Manages auto-resizing logic for textarea elements.
-- Returns: `{ textareaRef, resize }`
-- Automatically resizes on mount
-- Provides manual `resize()` function for input events
-
-## Development
-
-### Install dependencies
-```bash
-npm install
-```
-
-### Start dev server
-```bash
-npm run dev
-```
-Visit http://localhost:5173/
-
-### Build for production
-```bash
-npm run build
-```
-
-### Preview production build
-```bash
-npm run preview
-```
-
-## Styling
-
-Uses **Tailwind CSS v4** with CSS-based configuration:
-- No `tailwind.config.js` needed
-- Import via `@import "tailwindcss"` in `index.css`
-- Utility classes for responsive, modern UI
-- System font stack for optimal performance
+- **Auto-resizing textarea** - Grows with content (up to 10 rows)
+- **Timestamp separators** - Show time when 5+ minutes between messages
+- **Enter to send** - Shift+Enter for newlines
+- **Backend ready** - Complete API integration layer
+- **Mock API mode** - Develop without backend
+- **Loading states** - Shows when waiting for responses
+- **Error handling** - Graceful API error management
+- **Conversation tracking** - Maintains context across messages
 
 ## Code Quality
 
 - ✅ Full TypeScript coverage
-- ✅ Proper JSDoc comments on all components and hooks
-- ✅ Accessible by default (ARIA labels, keyboard navigation)
+- ✅ Type-safe API contracts (DTOs)
+- ✅ Proper JSDoc comments
 - ✅ Clean separation: UI in components, logic in hooks
-- ✅ No business logic in components
-- ✅ Production-ready build configuration
+- ✅ `npm run typecheck` - Verify types
+- ✅ Production-ready build
+
+## Styling
+
+Uses **Tailwind CSS v4**:
+- CSS-based configuration
+- Import via `@import "tailwindcss"` in `index.css`
+- Responsive utility classes
+- System font stack
+
 
 ## Adding New Features
 

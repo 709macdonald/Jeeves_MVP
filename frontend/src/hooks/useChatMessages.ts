@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react'
+import { sendMessage } from '../services'
 
 export type Message = {
   id: string
@@ -9,38 +10,35 @@ export type Message = {
 
 /**
  * Hook to manage chat messages and input state.
- * Handles adding messages, clearing input, and managing message list.
+ * Super simple: user types, hits send, we console log the DTO.
  */
 export function useChatMessages() {
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
+  const [conversationId] = useState(() => `conv-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`)
 
   /**
-   * Add a new message to the chat
-   */
-  const addMessage = useCallback((text: string, sender: 'user' | 'assistant' = 'user') => {
-    const newMessage: Message = {
-      id: `${Date.now()}-${Math.random()}`,
-      text,
-      timestamp: new Date(),
-      sender,
-    }
-    setMessages((prev) => [...prev, newMessage])
-  }, [])
-
-  /**
-   * Handle message submission
+   * Handle message submission - show the message and console log the DTO
    */
   const handleSubmit = useCallback(() => {
     const trimmedValue = inputValue.trim()
     if (!trimmedValue) return
 
-    // Add the user's message
-    addMessage(trimmedValue, 'user')
+    // Add the user's message to the chat
+    const newMessage: Message = {
+      id: `${Date.now()}-${Math.random()}`,
+      text: trimmedValue,
+      timestamp: new Date(),
+      sender: 'user',
+    }
+    setMessages((prev) => [...prev, newMessage])
+
+    // Send it (console logs the DTO)
+    sendMessage(trimmedValue, conversationId)
     
     // Clear the input
     setInputValue('')
-  }, [inputValue, addMessage])
+  }, [inputValue, conversationId])
 
   /**
    * Clear all messages
@@ -54,7 +52,6 @@ export function useChatMessages() {
     inputValue,
     setInputValue,
     handleSubmit,
-    addMessage,
     clearMessages,
   }
 }
