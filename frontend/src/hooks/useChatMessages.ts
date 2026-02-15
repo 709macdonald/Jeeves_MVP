@@ -18,7 +18,7 @@ export function useChatMessages() {
   const [conversationId] = useState(() => `conv-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`)
 
   /**
-   * Handle message submission - show the message and console log the DTO
+   * Handle message submission - show the message and send to backend
    */
   const handleSubmit = useCallback(() => {
     const trimmedValue = inputValue.trim()
@@ -33,8 +33,10 @@ export function useChatMessages() {
     }
     setMessages((prev) => [...prev, newMessage])
 
-    // Send it (console logs the DTO)
-    sendMessage(trimmedValue, conversationId)
+    // Send it to backend (fire and forget, we don't wait for response)
+    sendMessage(trimmedValue, conversationId).catch((error) => {
+      console.error('Error sending message:', error)
+    })
     
     // Clear the input
     setInputValue('')
