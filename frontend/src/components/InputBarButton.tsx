@@ -35,7 +35,7 @@ export default function InputBarButton({
     'active:scale-95',
     'disabled:opacity-40 disabled:cursor-not-allowed',
     'cursor-pointer',
-    'shadow-sm hover:shadow-md',
+    'shadow-none hover:shadow-md',
   ].join(' ')
 
   const variantClasses =
