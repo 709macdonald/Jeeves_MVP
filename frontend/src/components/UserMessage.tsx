@@ -3,8 +3,6 @@ import type { CSSProperties } from 'react'
 type UserMessageProps = {
   /** The message text content to display */
   message: string
-  /** Optional timestamp for the message */
-  timestamp?: Date | string
   /** Additional CSS styles for the container */
   style?: CSSProperties
   /** Additional CSS classes for the container */
@@ -14,10 +12,10 @@ type UserMessageProps = {
 /**
  * User message component for displaying messages sent by the user.
  * Features a clean, minimal design aligned to the right side.
+ * Timestamp is not shown on individual messages - use TimestampSeparator for time breaks.
  */
 export default function UserMessage({
   message,
-  timestamp,
   style,
   className = '',
 }: UserMessageProps) {
@@ -30,16 +28,6 @@ export default function UserMessage({
             {message}
           </p>
         </div>
-        
-        {/* Optional timestamp */}
-        {timestamp && (
-          <span className="text-xs text-gray-400 mt-1 px-1">
-            {typeof timestamp === 'string' 
-              ? timestamp 
-              : timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-            }
-          </span>
-        )}
       </div>
     </div>
   )

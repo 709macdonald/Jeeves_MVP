@@ -125,3 +125,13 @@ body {
 .input-bar-button:active:not(:disabled) {
   box-shadow: var(--shadow-sm);
 }
+
+/* Hide scrollbar but keep functionality - for horizontal timestamp reveal */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}

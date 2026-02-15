@@ -5,3 +5,5 @@
 
 export { useAutoResize } from './useAutoResize'
 export { useEnterSubmit } from './useEnterSubmit'
+export { useChatMessages } from './useChatMessages'
+export type { Message } from './useChatMessages'
