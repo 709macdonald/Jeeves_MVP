@@ -7,7 +7,7 @@ type InputBarProps = InputHTMLAttributes<HTMLInputElement>
 export default function InputBar(props: InputBarProps) {
   const { style, ...rest } = props
 
-  const defaultStyle: React.CSSProperties = {
+  const inputStyleDefaults: React.CSSProperties = {
     width: '100%',
     maxWidth: 640,
     padding: '10px 12px',
@@ -17,7 +17,7 @@ export default function InputBar(props: InputBarProps) {
     fontSize: 14,
   }
 
-  const defaultInputProps = {
+  const inputPropsDefaults = {
     placeholder: 'Type a message…',
     'aria-label': 'Message input',
   }
@@ -25,8 +25,8 @@ export default function InputBar(props: InputBarProps) {
   return (
     <input
       type="text"
-      style={{ ...defaultStyle, ...(style || {}) }}
-      {...defaultInputProps}
+      style={{ ...inputStyleDefaults, ...(style || {}) }}
+      {...inputPropsDefaults}
       {...rest}
     />
   )
