@@ -1,32 +1,48 @@
-import type { InputHTMLAttributes } from 'react'
+import type { TextareaHTMLAttributes } from 'react'
+import { useAutoResize } from '../hooks/useAutoResize'
 
-type InputBarProps = InputHTMLAttributes<HTMLInputElement>
+type InputBarProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
+  /** Maximum number of rows before scrolling kicks in. Default: 10 */
+  maxRows?: number
+}
 
-// Minimal input-only component with default inline styles and accessible defaults.
-// Parent can override both styles and attributes via props; we merge defaults first.
-export default function InputBar(props: InputBarProps) {
-  const { style, ...rest } = props
+/**
+ * Auto-resizing textarea input styled like ChatGPT's message input.
+ * Grows vertically as user types, up to maxRows, then scrolls.
+ */
+export default function InputBar({ className, maxRows = 10, onInput, ...rest }: InputBarProps) {
+  const { textareaRef, resize } = useAutoResize(maxRows)
 
-  const inputStyleDefaults: React.CSSProperties = {
-    width: '100%',
-    maxWidth: 640,
-    padding: '10px 12px',
-    borderRadius: 8,
-    border: '1px solid #d1d5db',
-    outline: 'none',
-    fontSize: 14,
-  }
+  const classes = [
+    'w-full px-4 py-3',
+    'rounded-3xl',
+    'border border-gray-200',
+    'bg-white',
+    'outline-none',
+    'text-base leading-relaxed',
+    'placeholder-gray-400',
+    'focus:border-gray-300',
+    'shadow-md hover:shadow-lg',
+    'transition-shadow duration-200',
+    'resize-none',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ')
 
-  const inputPropsDefaults = {
-    placeholder: 'Type a message…',
-    'aria-label': 'Message input',
+  const handleInput: React.FormEventHandler<HTMLTextAreaElement> = (e) => {
+    resize()
+    onInput?.(e)
   }
 
   return (
-    <input
-      type="text"
-      style={{ ...inputStyleDefaults, ...(style || {}) }}
-      {...inputPropsDefaults}
+    <textarea
+      ref={textareaRef}
+      className={classes}
+      placeholder="Type a message…"
+      aria-label="Message input"
+      rows={1}
+      onInput={handleInput}
       {...rest}
     />
   )

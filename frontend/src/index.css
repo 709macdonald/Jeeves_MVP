@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+/**
+ * Global styles for the Jeeves MVP application.
+ * Clean, minimal, modern ChatGPT-inspired design.
+ */
+
+html,
+body {
+  background-color: #ffffff;
+  color: #374151;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Remove default focus outlines - components handle their own focus styles */
+:focus-visible {
+  outline: none;
+}

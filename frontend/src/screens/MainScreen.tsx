@@ -1,32 +1,27 @@
-// MainScreen: renders a blank white full-viewport screen
 import InputBarSection from '../components/InputBarSection'
 
+/**
+ * Main application screen with ChatGPT-style layout.
+ * Features a centered input bar at the bottom with space above for messages.
+ */
 export default function MainScreen() {
+  const handleSubmit = () => {
+    console.log('Message submitted')
+    // TODO: Send message to backend
+  }
+
   return (
-    <div id="main-screen" style={{ minHeight: '100vh', backgroundColor: '#ffffff' }}>
-      {/* Bottom-centered bar using inline styles */}
-      <div
-        id="input-bar-container"
-        style={{
-          position: 'fixed',
-          left: 0,
-          right: 0,
-          bottom: 0,
-          display: 'flex',
-          justifyContent: 'center',
-          padding: 16,
-        }}
-      >
-        <InputBarSection
-          onSubmit={() => {
-            // Placeholder action for now
-            console.log('Submit from InputBarSection')
-          }}
-          onSend={() => {
-            // Placeholder action for now
-            console.log('Send clicked')
-          }}
-        />
+    <div className="min-h-screen bg-white flex flex-col">
+      {/* Message area - scrollable content above the input */}
+      <div className="flex-1 overflow-y-auto">
+        {/* TODO: Add message list component here */}
+      </div>
+
+      {/* Sticky input footer with backdrop blur */}
+      <div className="sticky bottom-0 w-full border-t border-gray-200 bg-white/80 backdrop-blur-sm">
+        <div className="max-w-3xl mx-auto px-4 py-4">
+          <InputBarSection maxWidth={768} onSubmit={handleSubmit} onSend={handleSubmit} />
+        </div>
       </div>
     </div>
   )

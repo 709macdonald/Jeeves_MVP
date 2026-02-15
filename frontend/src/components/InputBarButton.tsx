@@ -1,59 +1,59 @@
 import type { ButtonHTMLAttributes, ReactNode, CSSProperties } from 'react'
 
-type InputBarButtonProps = {
+type InputBarButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  /** Icon to display inside the button */
   icon?: ReactNode
+  /** Show loading state (disables button) */
   loading?: boolean
+  /** Visual variant: primary (blue) or secondary (white/gray) */
   variant?: 'primary' | 'secondary'
-  size?: number // diameter in px, default 40
-} & ButtonHTMLAttributes<HTMLButtonElement>
+  /** Button diameter in pixels. Default: 40 */
+  size?: number
+}
 
-// Reusable button component intended to sit next to the InputBar.
-// Accessible by default, with simple inline styles and a loading state.
+/**
+ * Circular icon button for actions next to the input bar.
+ * Fully accessible with hover/active states and loading support.
+ */
 export default function InputBarButton({
   icon,
   loading = false,
-  variant = 'primary',
+  variant = 'secondary',
   size = 40,
   style,
   disabled,
+  className,
   'aria-label': ariaLabel,
   type = 'button',
   ...rest
 }: InputBarButtonProps) {
-  const primaryStyle: CSSProperties = {
-    border: '1px solid #1d4ed8', // blue-700
-    backgroundColor: '#2563eb', // blue-600
-    color: '#ffffff',
-  }
+  const baseClasses = [
+    'inline-flex items-center justify-center',
+    'rounded-full select-none',
+    'transition-all duration-200 ease-in-out',
+    'active:scale-95',
+    'disabled:opacity-40 disabled:cursor-not-allowed',
+    'cursor-pointer',
+    'shadow-sm hover:shadow-md',
+  ].join(' ')
 
-  const secondaryStyle: CSSProperties = {
-    border: '1px solid #d1d5db', // gray-300
-    backgroundColor: '#f9fafb', // gray-50
-    color: '#111827', // gray-900
-  }
+  const variantClasses =
+    variant === 'primary'
+      ? 'bg-blue-600 text-white hover:bg-blue-700 border-0'
+      : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
 
-  const baseStyle: CSSProperties = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+  const dimensionStyle: CSSProperties = {
     width: size,
     height: size,
     padding: 0,
-    borderRadius: '50%',
-    cursor: disabled || loading ? 'not-allowed' : 'pointer',
-    opacity: disabled || loading ? 0.6 : 1,
-    transition: 'opacity 120ms ease, transform 120ms ease',
-    userSelect: 'none',
-    ...(variant === 'primary' ? primaryStyle : secondaryStyle),
-    ...(style || {}),
+    ...style,
   }
-
-  // Icon-only button; use aria-label for accessibility
 
   return (
     <button
       type={type}
-      style={baseStyle}
+      className={[baseClasses, variantClasses, className].filter(Boolean).join(' ')}
+      style={dimensionStyle}
       disabled={disabled || loading}
       aria-label={ariaLabel || 'Action button'}
       {...rest}
