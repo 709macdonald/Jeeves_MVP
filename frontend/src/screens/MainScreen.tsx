@@ -1,4 +1,5 @@
 import InputBarSection from '../components/InputBarSection'
+import MessageDisplayArea from '../components/MessageDisplayArea'
 
 /**
  * Main application screen with ChatGPT-style layout.
@@ -13,9 +14,9 @@ export default function MainScreen() {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       {/* Message area - scrollable content above the input */}
-      <div className="flex-1 overflow-y-auto">
-        {/* TODO: Add message list component here */}
-      </div>
+      <MessageDisplayArea maxWidth={768}>
+        {/* TODO: Add message components here */}
+      </MessageDisplayArea>
 
       {/* Input footer with spacing and shadow - centered with max width */}
       <div className="flex justify-center px-4 pb-4">
